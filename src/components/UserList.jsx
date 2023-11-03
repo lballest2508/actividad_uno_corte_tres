@@ -1,12 +1,12 @@
-// src/components/UserList.js
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { Container, Table, Button } from 'react-bootstrap'; // Importa componentes de React-Bootstrap
 
-function UserList({ users, deleteUser, editUser }) {
+export const UserList = ({ users, deleteUser, editUser }) => {
   return (
-    <div>
+    <Container>
       <h2>Lista de Usuarios</h2>
-      <table className="table">
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th>ID</th>
@@ -22,15 +22,25 @@ function UserList({ users, deleteUser, editUser }) {
               <td>{user.name}</td>
               <td>{user.apellido}</td>
               <td>
-                <Link to="/edit"><button onClick={() => editUser(user.id)}>Editar</button></Link>
-                <button onClick={() => deleteUser(user.id)}>Eliminar</button>
+                <Link to="/edit">
+                  <Button
+                    variant="primary"
+                    onClick={() => editUser(user.id)}
+                  >
+                    Editar
+                  </Button>
+                </Link>
+                <Button
+                  variant="danger"
+                  onClick={() => deleteUser(user.id)}
+                >
+                  Eliminar
+                </Button>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
-    </div>
+      </Table>
+    </Container>
   );
 }
-
-export default UserList;

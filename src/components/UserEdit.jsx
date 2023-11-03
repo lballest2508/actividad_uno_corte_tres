@@ -1,12 +1,11 @@
-// src/components/UserEdit.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Container, Form, Button } from 'react-bootstrap'; // Importa componentes de React-Bootstrap
 
-function UserEdit({ user, updateUser }) {
+export const UserEdit = ({ user, updateUser }) => {
   const [name, setName] = useState(user.name);
   const [apellido, setApellido] = useState(user.apellido);
-
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,25 +16,27 @@ function UserEdit({ user, updateUser }) {
   };
 
   return (
-    <div>
+    <Container>
       <h2>Editar Usuario</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Nombre"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="apellido"
-          placeholder="apellido"
-          value={apellido}
-          onChange={(e) => setApellido(e.target.value)}
-        />
-        <button type="submit">Guardar cambios</button>
-      </form>
-    </div>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Control
+            type="text"
+            placeholder="Nombre"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Control
+            type="text"
+            placeholder="Apellido"
+            value={apellido}
+            onChange={(e) => setApellido(e.target.value)}
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit">Guardar cambios</Button>
+      </Form>
+    </Container>
   );
 }
-
-export default UserEdit;

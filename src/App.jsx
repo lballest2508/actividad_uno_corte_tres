@@ -1,12 +1,15 @@
 // src/App.js
 import { useState } from 'react';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import { Container, Navbar, Nav } from 'react-bootstrap'; // Importa componentes de React-Bootstrap
 import UserList from './components/UserList';
 import UserForm from './components/UserForm';
 import UserEdit from './components/UserEdit';
 import UserDelete from './components/UserDelete';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
+
+export const App = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -30,28 +33,25 @@ function App() {
 
   return (
     <Router>
-      <div className="container">
-        <h1>CRUD de Usuarios</h1>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Lista de Usuarios</Link>
-            </li>
-            <li>
-              <Link to="/add">Registrar Usuario</Link>
-            </li>
-          </ul>
-        </nav>
+      <Container>
+        <Navbar bg="light" expand="lg"> {/* Aplica un estilo de fondo */}
+          <Navbar.Brand>CRUD de Usuarios</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link as={Link} to="/">Lista de Usuarios</Nav.Link> {/* Utiliza Nav.Link para enlaces */}
+              <Nav.Link as={Link} to="/add">Registrar Usuario</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
 
         <Routes>
-          <Route path="/" element={<UserList users={users} deleteUser={deleteUser} editUser={editUser} />}/>
+          <Route path="/" element={<UserList users={users} deleteUser={deleteUser} editUser={editUser} />} />
           <Route path="/add" element={<UserForm addUser={addUser} />} />
-          <Route path="/edit" element={selectedUser && <UserEdit user={selectedUser} updateUser={updateUser} />}/>
-          <Route path="/delete" element={selectedUser && <UserDelete user={selectedUser} deleteUser={deleteUser} />}/>
+          <Route path="/edit" element={selectedUser && <UserEdit user={selectedUser} updateUser={updateUser} />} />
+          <Route path="/delete" element={selectedUser && <UserDelete user={selectedUser} deleteUser={deleteUser} />} />
         </Routes>
-      </div>
+      </Container>
     </Router>
   );
 }
-
-export default App;
